@@ -1,0 +1,29 @@
+%no-font {
+  font-size: 0;
+  line-height: 0;
+}
+
+%no-text { 
+  @extend %no-font;
+  display: block;
+  overflow: hidden;
+  text-indent: -9999px;
+}
+
+%hidden-desktop {
+  @include devices(desktop-up) {
+    display: none;
+  }
+}
+
+%hidden-tablet {
+  @include devices(tablet-up) {
+    display: none;
+  }
+}
+
+%hidden-mobile {
+  @include devices(tablet-down) {
+    display: none;
+  }
+} 

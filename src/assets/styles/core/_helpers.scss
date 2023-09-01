@@ -1,0 +1,15 @@
+.hidden-xl {
+  @extend %hidden-desktop;
+}
+
+.hidden-md {
+  @extend %hidden-tablet;
+}
+
+.hidden-sm {
+  @extend %hidden-mobile;
+}
+
+.notext {
+  @extend %no-text;
+}
