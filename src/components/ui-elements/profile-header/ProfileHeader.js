@@ -4,10 +4,8 @@ import BaseButton from '../../base-elements/base-button/BaseButton';
 import BaseIcon from '../../base-elements/base-icon/BaseIcon';
 
 import { ReactComponent as IconArrowLeft } from './../../../assets/icons/arrow-left.svg';
-import {
-  ReactComponent
-    as IconNotification
-} from './../../../assets/icons/notification.svg';
+import { ReactComponent as IconLogo } from './../../../assets/icons/logo.svg';
+import { ReactComponent as IconNotification } from './../../../assets/icons/notification.svg';
 
 import './ProfileHeader.scss';
 
@@ -23,9 +21,8 @@ function profileHeader({ username, notificationsCount }) {
     mode: 'button',
     className: 'notification',
     to: '/',
-    label: 'Back',
-    labelClasses: 'notification__count',
-    notificationsCountStr: notificationsCount?.toString()
+    label: notificationsCount?.toString(),
+    labelClasses: 'notification__count'
   }
 
   return (
@@ -36,6 +33,11 @@ function profileHeader({ username, notificationsCount }) {
             <IconArrowLeft />
           </BaseIcon>
         </BaseButton>
+        <BaseButton mode="router" to="/" label="Account Dashboard" className="logo" labelClasses="logo__text hidden-sm">
+          <span class="logo__icon">
+            <IconLogo />
+          </span>
+        </BaseButton>
       </div>
       <div className='header__center'>
         <div className="header-username hidden-md">
@@ -43,13 +45,13 @@ function profileHeader({ username, notificationsCount }) {
         </div>
       </div>
       <div className='header__right'>
-        <base-button {...notificationButtonProps}>
-          <base-icon className="['icon--notification']">
+        <BaseButton {...notificationButtonProps}>
+          <BaseIcon className="['icon--notification']">
             <IconNotification />
-          </base-icon>
-        </base-button>
+          </BaseIcon>
+        </BaseButton>
       </div>
-    </header>
+    </header >
   )
 }
 
