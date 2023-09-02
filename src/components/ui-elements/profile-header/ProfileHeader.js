@@ -1,12 +1,13 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
 
 import BaseButton from '../../base-elements/base-button/BaseButton';
 import BaseIcon from '../../base-elements/base-icon/BaseIcon';
 
-// import { svgLeftArrow } from './../../assets/icons/SvgStore.js';
-
-import arrowLeft from './../../../assets/icons/arrow-left.svg';
-import iconNotification from './../../../assets/icons/notification.svg';
+import { ReactComponent as IconArrowLeft } from './../../../assets/icons/arrow-left.svg';
+import {
+  ReactComponent
+    as IconNotification
+} from './../../../assets/icons/notification.svg';
 
 import './ProfileHeader.scss';
 
@@ -31,7 +32,9 @@ function profileHeader({ username, notificationsCount }) {
     <header className='header'>
       <div className='header__left'>
         <BaseButton {...backButtonProps}>
-          <BaseIcon className={'icon--arrow-left'}>{arrowLeft}</BaseIcon>
+          <BaseIcon className={'icon--arrow-left'}>
+            <IconArrowLeft />
+          </BaseIcon>
         </BaseButton>
       </div>
       <div className='header__center'>
@@ -41,7 +44,9 @@ function profileHeader({ username, notificationsCount }) {
       </div>
       <div className='header__right'>
         <base-button {...notificationButtonProps}>
-          <base-icon className="['icon--notification']">{iconNotification}</base-icon>
+          <base-icon className="['icon--notification']">
+            <IconNotification />
+          </base-icon>
         </base-button>
       </div>
     </header>
