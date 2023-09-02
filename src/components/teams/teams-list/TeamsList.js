@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import './TeamsList.scss';
 
 const TeamsList = ({ children }) => {
@@ -8,4 +9,4 @@ const TeamsList = ({ children }) => {
   )
 }
 
-export default TeamsList;
+export default memo(TeamsList);

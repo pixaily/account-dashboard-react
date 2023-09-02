@@ -47,4 +47,4 @@ const TeamItem = ({
 
 }
 
-export default TeamItem;
+export default memo(TeamItem);
