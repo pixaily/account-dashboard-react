@@ -8,6 +8,8 @@ import BaseIcon from '../../base-elements/base-icon/BaseIcon';
 import arrowLeft from './../../../assets/icons/arrow-left.svg';
 import iconNotification from './../../../assets/icons/notification.svg';
 
+import './ProfileHeader.scss';
+
 function profileHeader({ username, notificationsCount }) {
   const backButtonProps = {
     mode: 'router',
