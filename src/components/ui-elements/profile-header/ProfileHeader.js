@@ -34,7 +34,7 @@ function profileHeader({ username, notificationsCount }) {
           </BaseIcon>
         </BaseButton>
         <BaseButton mode="router" to="/" label="Account Dashboard" className="logo" labelClasses="logo__text hidden-sm">
-          <span class="logo__icon">
+          <span className="logo__icon">
             <IconLogo />
           </span>
         </BaseButton>

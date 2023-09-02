@@ -1,6 +1,5 @@
 import { memo } from 'react';
 import './BaseSection.scss';
-import BaseIcon from '../base-icon/BaseIcon';
 
 function BaseSection({ title, children }) {
 
