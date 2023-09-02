@@ -12,6 +12,8 @@ import TeamItem from './../../teams/team-item/TeamItem';
 
 import './UserProfile.scss';
 
+import iconNoResults from './../../../assets/icons/no-results.svg';
+
 function UserProfile() {
   const userData = {
     username: 'Richi',
@@ -39,9 +41,30 @@ function UserProfile() {
           <ProfileTabs />
           <BaseSection title="Search Teams">
             <SearchField search="search" arrowUp="arrowUpHandler" arrowDown="arrowDownHandler"></SearchField>
+            {/* if search has marches show list */}
+            <TeamsList>
+              <TeamItem></TeamItem>
+            </TeamsList>
+            {/* else show no mathces found message */}
+            <p className='search__no-results'>
+              <BaseIcon className="class--no-results">{iconNoResults}</BaseIcon>
+              <span>No Matches Found</span>
+            </p>
+          </BaseSection>
+          <div className='divider'></div>
+          <BaseSection title={'My Teams'}>
+            {/* If my teams length ===0  */}
+            <div className='myteams-empty'>
+              <p>You aren't following any teams yet.</p>
+            </div>
+            {/* Else */}
+            <TeamsList>
+              <TeamItem></TeamItem>
+            </TeamsList>
+            {/* EndIf  */}
           </BaseSection>
         </main>
-      </div>
+      </div >
     </>
   )
 }

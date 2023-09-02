@@ -7,7 +7,7 @@ function BaseSection({ title, children }) {
   const titleMarkup = () => {
     let result = '';
     if (title) {
-      result = (<div class="base-section__heading">
+      result = (<div className="base-section__heading">
         <h3>{title}</h3>
       </div>)
     }
@@ -17,7 +17,7 @@ function BaseSection({ title, children }) {
   return (
     <section className='base-section'>
       {titleMarkup()}
-      <div class="base-section__content">
+      <div className="base-section__content">
         {children}
       </div>
     </section>
