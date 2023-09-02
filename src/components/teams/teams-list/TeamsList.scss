@@ -1,0 +1,62 @@
+@import '../../../assets/styles/utils';
+
+.teams-list {
+  list-style-type: none;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: $font-weight-medium;
+}
+.team {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  &.hover {
+    background-color: $color-base-background;
+    .team__badge { background-color: $color-base; }
+  }
+  mark {
+    background-color: transparent;
+    color: $color-accent-light;
+  }
+}
+.team__badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  background-color: $color-base-background;
+  margin-right: 15px;
+  img { 
+    max-width: 28px;
+    max-height: 28px;
+  }
+}
+.team__details {
+  margin-right: auto;
+}
+.team__leagues,
+.team__stadium {
+  font-size: 11px;
+  line-height: 1.1;
+  color: $color-font-placeholder;
+}
+.team__info {
+  display: flex;
+  align-items: center;
+}
+.team__name {
+  color: $color-font-base;
+}
+.team__stadium {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+  border-left: 1px solid $color-base-divider;
+  padding-left: 5px;
+}
+.team__stadium__name {
+  margin-left: 5px;
+  padding-top: 4px;
+}
