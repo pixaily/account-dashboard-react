@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { useState, memo } from 'react';
 
 import BaseButton from '../../base-elements/base-button/BaseButton';
 import BaseIcon from '../../base-elements/base-icon/BaseIcon';
@@ -9,21 +9,28 @@ import { ReactComponent as IconNotification } from './../../../assets/icons/noti
 
 import './ProfileHeader.scss';
 
-function profileHeader({ username, notificationsCount }) {
-  const backButtonProps = {
+function ProfileHeader({ username, notificationsCount }) {
+  const [backButtonProps] = useState({
     mode: 'router',
     className: 'very-special-class',
-    to: '/',
+    path: '/',
     label: 'Back',
     labelClasses: 'notext'
-  }
-  const notificationButtonProps = {
+  });
+  const [notificationButtonProps] = useState({
     mode: 'button',
     className: 'notification',
-    to: '/',
+    path: '/',
     label: notificationsCount?.toString(),
     labelClasses: 'notification__count'
-  }
+  })
+  const [logoButtonProps] = useState({
+    mode: 'router',
+    className: 'logo',
+    path: '/',
+    label: 'Account Dashboard',
+    labelClasses: 'logo__text hidden-sm'
+  })
 
   return (
     <header className='header'>
@@ -33,7 +40,7 @@ function profileHeader({ username, notificationsCount }) {
             <IconArrowLeft />
           </BaseIcon>
         </BaseButton>
-        <BaseButton mode="router" to="/" label="Account Dashboard" className="logo" labelClasses="logo__text hidden-sm">
+        <BaseButton {...logoButtonProps}>
           <span className="logo__icon">
             <IconLogo />
           </span>
@@ -55,4 +62,4 @@ function profileHeader({ username, notificationsCount }) {
   )
 }
 
-export default memo(profileHeader);
+export default memo(ProfileHeader);
