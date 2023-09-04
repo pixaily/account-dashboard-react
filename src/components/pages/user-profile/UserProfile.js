@@ -83,7 +83,7 @@ function UserProfile({ username, notificationsCount, avatar, level, ...props }) 
     let highlightText = '';
 
     if (nameMatches && nameMatches.length > 0) {
-      highlightText = highlightMaches(nameMatches, string)
+      highlightText = highlightMachtes(nameMatches, string)
     }
 
     return highlightText;
@@ -95,7 +95,7 @@ function UserProfile({ username, notificationsCount, avatar, level, ...props }) 
     return [...(new Set(str.match(rex)))]
   }
 
-  const highlightMaches = (matches, str) => {
+  const highlightMachtes = (matches, str) => {
     let temp = '';
 
     matches.forEach(match => {
@@ -104,6 +104,8 @@ function UserProfile({ username, notificationsCount, avatar, level, ...props }) 
 
     return temp;
   }
+
+  const [followedTeams, setFollowedTeams] = useState([]);
 
   if (isLoading) {
     return (
@@ -126,9 +128,6 @@ function UserProfile({ username, notificationsCount, avatar, level, ...props }) 
           <ProfileTabs />
           <BaseSection title="Search Teams">
             <SearchField search="search" arrowUp="arrowUpHandler" arrowDown="arrowDownHandler" changeHandler={searchOnChangeHandler}></SearchField>
-            {/* if search has marches show list */}
-            {/* {console.log(matches)} */}
-            {/* {console.log(showNoMatches)} */}
             {matches.length > 0 ?
               <TeamsList>
                 {matches.map((team, index) => {
@@ -157,15 +156,24 @@ function UserProfile({ username, notificationsCount, avatar, level, ...props }) 
           </BaseSection>
           <div className='divider'></div>
           <BaseSection title={'My Teams'}>
-            {/* If my teams length ===0  */}
-            <div className='myteams-empty'>
-              <p>You aren't following any teams yet.</p>
-            </div>
-            {/* Else */}
-            <TeamsList>
-              <TeamItem></TeamItem>
-            </TeamsList>
-            {/* EndIf  */}
+            {followedTeams.length > 0 ?
+              <TeamsList>
+                {followedTeams.map((team, index) => {
+                  return (
+                    <TeamItem
+                      key={index}
+                      id={team.id}
+                      name={team.name}
+                      showButton={false}
+                    ></TeamItem>
+                  )
+                })}
+              </TeamsList>
+              :
+              <div className='myteams-empty'>
+                <p>You aren't following any teams yet.</p>
+              </div>
+            }
           </BaseSection>
         </main >
       </>

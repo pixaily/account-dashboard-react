@@ -39,12 +39,14 @@ const TeamItem = ({
           </div>
         </div>
       </div>
-      <div className="team__action" v-if="showButton">
-        <BaseButton
-          mode="button"
-          label={buttonLabel}
-          className={`button button--primary ${isFollowing ? 'active' : ''}`}></BaseButton>
-      </div>
+      {showButton &&
+        <div className="team__action" v-if="showButton">
+          <BaseButton
+            mode="button"
+            label={buttonLabel}
+            className={`button button--primary ${isFollowing ? 'active' : ''}`}></BaseButton>
+        </div>
+      }
     </li>
   )
 
