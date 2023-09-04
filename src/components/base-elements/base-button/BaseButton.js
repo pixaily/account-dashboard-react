@@ -1,36 +1,28 @@
 import { memo } from 'react';
 
-function BaseButton(props) {
-  const {
-    mode,
-    type,
-    to,
-    className,
-    labelClasses,
-    label,
-    children } = props;
+function BaseButton({ mode, type, path, className, label, labelClasses, children, ...props }) {
 
-  return (
-    <>
-      {/* { mode === 'button'} */}
-      <button
-        type={type ? type : 'button'}
-        className={className}
-      >
-        {/* if button label */}
-        <span className={labelClasses}>{label}</span>
-        {/* endif */}
-        {/* if chilren */}
-        {children}
-        {/* end if children */}
-      </button>
-      {/* { mode === 'router'} */}
-      {/* router link */}
-      {/* { mode === 'link' } */}
-      {/* <a href="#"></a> */}
-      {/* endif */}
-    </>
-  )
+  let buttonMarkup;
+
+  if (mode === 'link') {
+    buttonMarkup = <a href='path' className={className}>
+      {label && <span className={labelClasses}>{label}</span>}
+      {children && children}
+    </a>;
+  } else if (mode === 'router') {
+    // buttonMarkup = <RouterProvider router={router} />
+    buttonMarkup = <a href={path} router={path} className={className}>
+      {label && <span className={labelClasses}>{label}</span>}
+      {children && children}
+    </a>
+  } else {
+    buttonMarkup = <button type={type ? type : 'button'} className={className}>
+      {label && <span className={labelClasses}>{label}</span>}
+      {children && children}
+    </button>
+  }
+
+  return buttonMarkup;
 }
 
 export default memo(BaseButton);
