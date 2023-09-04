@@ -1,5 +1,7 @@
 import { memo } from 'react';
 
+import './BaseButton.scss'
+
 function BaseButton({ mode, type, path, className, label, labelClasses, children, ...props }) {
 
   let buttonMarkup;
