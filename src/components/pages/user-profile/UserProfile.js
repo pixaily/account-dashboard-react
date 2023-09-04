@@ -9,7 +9,6 @@ import SearchField from './../../ui-elements/search-field/SearchField';
 
 import TeamsList from './../../teams/teams-list/TeamsList';
 import TeamItem from './../../teams/team-item/TeamItem';
-
 import { ReactComponent as IconNoResults } from './../../../assets/icons/no-results.svg';
 
 import './UserProfile.scss';
@@ -29,6 +28,82 @@ function UserProfile({ username, notificationsCount, avatar, level, ...props }) 
       setIsLoading(false);
     }
   }, [userData])
+
+  const [teams, setTeams] = useState(() => {
+    fetch('https://run.mocky.io/v3/d07e361a-8f4b-4fdc-a8fe-bce479a0cbfd')
+      .then(res => res.json())
+      .then(data => {
+        setTeams(data)
+      })
+  });
+
+
+  const [showNoMatches, setShowNoMatches] = useState(false);
+
+  const [matches, setMatches] = useState([]);
+
+  const searchOnChangeHandler = (e) => {
+    const val = e.target.value.toLowerCase();
+    const temp = [];
+
+    setShowNoMatches(false);
+
+    if (val.length > 0) {
+      teams.forEach((team) => {
+        const markedTeam = {
+          ...team,
+          highlightName: '',
+          highlightStadium: '',
+          highlightLeagues: []
+        };
+        markedTeam.highlightName = checkMatches(val, team.name);
+        markedTeam.highlightStadium = checkMatches(val, team.stadium);
+
+        team.leagues.forEach(league => {
+          const highlightLeague = checkMatches(val, league);
+
+          if (highlightLeague.length > 0) {
+            markedTeam.highlightLeagues.push(highlightLeague);
+          }
+        })
+
+        if (markedTeam.highlightName.length > 0 || markedTeam.highlightStadium.length > 0 || markedTeam.highlightLeagues.length > 0) {
+          temp.push(markedTeam);
+        }
+      });
+      setMatches(temp);
+      if (temp.length === 0) {
+        setShowNoMatches(true);
+      }
+    }
+  }
+
+  const checkMatches = (search, string) => {
+    const nameMatches = filterBy(search, string);
+    let highlightText = '';
+
+    if (nameMatches && nameMatches.length > 0) {
+      highlightText = highlightMaches(nameMatches, string)
+    }
+
+    return highlightText;
+  }
+
+  const filterBy = (part, str) => {
+    const rex = new RegExp(part, 'gmi');
+
+    return [...(new Set(str.match(rex)))]
+  }
+
+  const highlightMaches = (matches, str) => {
+    let temp = '';
+
+    matches.forEach(match => {
+      temp = str.replaceAll(match, `<mark>${match}</mark>`)
+    });
+
+    return temp;
+  }
 
   if (isLoading) {
     return (
@@ -50,18 +125,35 @@ function UserProfile({ username, notificationsCount, avatar, level, ...props }) 
           </section>
           <ProfileTabs />
           <BaseSection title="Search Teams">
-            <SearchField search="search" arrowUp="arrowUpHandler" arrowDown="arrowDownHandler"></SearchField>
+            <SearchField search="search" arrowUp="arrowUpHandler" arrowDown="arrowDownHandler" changeHandler={searchOnChangeHandler}></SearchField>
             {/* if search has marches show list */}
-            <TeamsList>
-              <TeamItem></TeamItem>
-            </TeamsList>
-            {/* else show no mathces found message */}
-            <p className='search__no-results'>
-              <BaseIcon className="class--no-results">
-                <IconNoResults />
-              </BaseIcon>
-              <span>No Matches Found</span>
-            </p>
+            {/* {console.log(matches)} */}
+            {/* {console.log(showNoMatches)} */}
+            {matches.length > 0 ?
+              <TeamsList>
+                {matches.map((team, index) => {
+                  return (<TeamItem
+                    key={index}
+                    id={team.id}
+                    name={team.highlightName || team.name}
+                    stadium={team.highlightStadium || team.stadium}
+                    leagues={team.highlightLeagues.length > 0 ? team.highlightLeagues : team.leagues}
+                    showButton={true}
+                    isFollowing={team.isFollowing}
+                  ></TeamItem>)
+                  // className={ currentIndex === index ? 'hover' : '' }
+                })}
+              </TeamsList>
+              :
+              showNoMatches ?
+                <p className='search__no-results'>
+                  <BaseIcon className="class--no-results">
+                    <IconNoResults />
+                  </BaseIcon>
+                  <span>No Matches Found</span>
+                </p>
+                : ''
+            }
           </BaseSection>
           <div className='divider'></div>
           <BaseSection title={'My Teams'}>
@@ -75,7 +167,7 @@ function UserProfile({ username, notificationsCount, avatar, level, ...props }) 
             </TeamsList>
             {/* EndIf  */}
           </BaseSection>
-        </main>
+        </main >
       </>
     )
   }

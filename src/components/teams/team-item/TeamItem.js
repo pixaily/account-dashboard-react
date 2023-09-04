@@ -1,4 +1,4 @@
-import { ReactComponent, memo } from 'react';
+import { ReactComponent, memo, useEffect, useState } from 'react';
 
 import BaseButton from "../../base-elements/base-button/BaseButton";
 import BaseIcon from "../../base-elements/base-icon/BaseIcon";
@@ -8,39 +8,42 @@ import { ReactComponent as IconStadium } from './../../../assets/icons/stadium.s
 
 
 const TeamItem = ({
+  id,
   name,
   badgeSrc,
-  leagues,
   stadium,
-  iconStadium,
-  buttonLabel
+  leagues,
+  showButton,
+  isFollowing
 }) => {
+  const [teamBadge] = useState(() => badgeSrc ? `./../../../assets/images/${badgeSrc}` : IconBadge);
+  const leaguesEl = (leagues && leagues.join(', '))
+  const [buttonLabel, setButtonLabel] = useState('Follow')
 
-  badgeSrc = badgeSrc ? badgeSrc : IconBadge;
+  useEffect(() => isFollowing && setButtonLabel('Following'), [buttonLabel])
 
   return (
     <li className="team">
       <div className="team__badge">
-        <img src={badgeSrc} alt={name} />
+        <img src={teamBadge} alt={name} />
       </div>
       <div className="team__details">
-        {/* if leagues */}
-        <div className="team__leagues"></div>
-        {/* end if leagues */}
+        <div className="team__leagues" dangerouslySetInnerHTML={{ __html: leaguesEl }}></div>
         <div className="team__info">
-          <div className="team__name" html={name}></div>
-          {/* if stadium */}
+          <div className="team__name" dangerouslySetInnerHTML={{ __html: name }}></div>
           <div className="team__stadium">
             <BaseIcon className="icon--stadium">
               <IconStadium />
             </BaseIcon>
-            <span className="team__stadium__name" v-html="stadium" ></span>
+            <span className="team__stadium__name" dangerouslySetInnerHTML={{ __html: stadium }}></span>
           </div>
-          {/* end stadium */}
         </div>
       </div>
       <div className="team__action" v-if="showButton">
-        <BaseButton mode="button" label={buttonLabel} className="button button--primary isFollowing ? 'active' : ''"></BaseButton>
+        <BaseButton
+          mode="button"
+          label={buttonLabel}
+          className={`button button--primary ${isFollowing ? 'active' : ''}`}></BaseButton>
       </div>
     </li>
   )
