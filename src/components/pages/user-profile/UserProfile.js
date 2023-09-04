@@ -1,4 +1,4 @@
-import { ReactComponent, memo } from 'react';
+import { ReactComponent, memo, useEffect, useState } from 'react';
 
 import BaseSection from './../../base-elements/base-section/BaseSection';
 import BaseIcon from './../../base-elements/base-icon/BaseIcon';
@@ -14,25 +14,35 @@ import { ReactComponent as IconNoResults } from './../../../assets/icons/no-resu
 
 import './UserProfile.scss';
 
-function UserProfile() {
-  const userData = {
-    username: 'Richi',
-    notificationsCount: '2',
-    avatar: ' ',
-    level: 5
-  }
+function UserProfile({ username, notificationsCount, avatar, level, ...props }) {
+  const [isLoading, setIsLoading] = useState(true);
 
+  const [userData, setUserData] = useState({
+    username: username || 'Richi',
+    notificationsCount: notificationsCount || '2',
+    avatar: avatar || 'profile.png',
+    level: level || 5
+  })
 
-  return (
-    <>
+  useEffect(() => {
+    if (Object.entries(userData).length > 0) {
+      setIsLoading(false);
+    }
+  }, [userData])
+
+  if (isLoading) {
+    return (
       <div className="loading-screen">Loading <span>...</span></div>
-      <div>
+    )
+  } else {
+    return (
+      <>
         <ProfileHeader {...userData} />
         <main className="main container">
           <section className="profile">
             <div className="profile__details">
-              <figure>
-                <img src={userData.avatar} alt={userData.username} className='image' />
+              <figure className='profile__avatar'>
+                <img src={require(`./../../../assets/images/${userData.avatar}`)} alt={userData.username} className='image' />
               </figure>
               <p className="profile__level">Level {userData.level}</p>
             </div>
@@ -66,9 +76,9 @@ function UserProfile() {
             {/* EndIf  */}
           </BaseSection>
         </main>
-      </div >
-    </>
-  )
+      </>
+    )
+  }
 }
 
 export default memo(UserProfile)
