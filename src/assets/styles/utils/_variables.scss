@@ -1,0 +1,31 @@
+// # Colors
+$color-base: #fff;
+$color-main: #000;
+
+$color-base-background: #F5F7F9;
+$color-base-divider: #E1E7ED;
+
+$color-accent: #1E3554;
+$color-accent-dark: #112948;
+$color-accent-dark-over: #183050;
+$color-accent-light: #00B1FF;
+
+$color-font-base: #1A3150;
+$color-font-placeholder: #6F8CAA;
+
+// # Font families
+$font-family-base: 'Roboto', sans-serif;
+$font-family-main: 'Montserrat', sans-serif;
+
+// # Font weight
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 900;
+
+
+// # Font size
+$font-size-base-value: 16;
+
+$font-size-base: $font-size-base-value + 0px;
+$font-size-big: 24px;

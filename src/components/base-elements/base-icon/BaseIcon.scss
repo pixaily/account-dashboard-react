@@ -1,0 +1,30 @@
+@import '../../../assets/styles/utils';
+
+.icon {
+  @extend %no-font;
+  display: block;
+}
+.icon--arrow-left {
+  width: 9px;
+  height: 16px;
+}
+.icon--notification {
+  width: 20px;
+  height: 20px;
+}
+.icon--no-results {
+  width: 144px;
+  height: 77px;
+}
+.icon--search {
+  width: 17px;
+  height: 17px;
+}
+.icon--clear {
+  width: 12px;
+  height: 12px;
+}
+.icon--stadium {
+  width: 14px;
+  height: 13px;
+}

@@ -1,0 +1,25 @@
+// @import url('./../../../assets/styles/utils.scss');
+@import './../../../assets/styles/utils.scss';
+
+.button {
+  font-size: 12px;
+  line-height: 1.2;
+  font-weight: $font-weight-medium;
+  padding: 8px 20px;
+  text-transform: uppercase;
+  border-radius: 80px;
+  border-width: 1px;
+  border-style: solid;
+}
+.button--primary {
+  background-color: $color-accent-light;
+  border-color: $color-accent-light;;
+  color: $color-base;
+  &:hover,
+  &:active,
+  &.active {
+    background-color: $color-base;
+    border-color: $color-accent-light;
+    color: $color-accent-light;  
+  }
+}
